@@ -1,0 +1,14 @@
+<%= form_with(model: follow_request) do |form| %>
+  <%= form.hidden_field :recipient_id %>
+
+  <div>
+    <%= form.button class: "btn btn-primary rounded-pill icon-link" do %>
+      <% if follow_request.persisted? %>
+        Following
+      <% else %>
+        <i class="fa-solid fa-plus"></i>
+        Follow
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

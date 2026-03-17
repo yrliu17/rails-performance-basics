@@ -1,0 +1,47 @@
+<li id="<%= dom_id(comment) %>" class="list-group-item">
+  <div class="p-3 pb-0">
+    <div class="d-flex">
+      <div class="flex-shrink-0">
+        <%= image_tag comment.author.avatar_image, class: "rounded-circle img-small" %>
+      </div>
+      <div class="flex-grow-1 ms-3">
+        <h6>
+          <%= link_to user_path(comment.author.username), class: "text-decoration-none" do %>
+            <%= comment.author.display_name %>
+            <span class="fw-lighter text-body">
+              @<%= comment.author.username %>
+            </span>
+          <% end %>
+          &middot;
+          <%= time_ago_in_words(comment.created_at) %>
+        </h6>
+        <p class="mb-0">
+          <%= comment.body %>
+        </p>
+
+        <div class="d-flex justify-content-end">
+          <div class="dropdown">
+            <%= button_tag class: "btn btn-link text-decoration-none",
+            data: {bs_toggle: "dropdown"},
+            aria: { expanded: false } do %>
+              <i class="fa-solid fa-ellipsis"></i>
+            <% end %>
+            <ul class="dropdown-menu">
+              <li>
+                <%= link_to edit_comment_path(comment), class: "dropdown-item" do %>
+                  Edit
+                <% end %>
+              </li>
+              <li>
+                <%= button_to comment_path(comment), method: :delete, class: "dropdown-item" do %>
+                  Delete
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</li>

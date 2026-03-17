@@ -1,0 +1,32 @@
+<%= form_with(model: photo, class: "card-body") do |form| %>
+  <% if photo.errors.any? %>
+    <div id="error_explanation">
+      <ul class="list-unstyled">
+        <% photo.errors.each do |error| %>
+          <li>
+            <div class="alert alert-danger" role="alert">
+              <%= error.full_message %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :image, class: "visually-hidden" %>
+    <% if photo.persisted? && photo.image.attached? %>
+      <%= image_tag photo.image, class: "img-cover w-100 mb-2" %>
+    <% end %>
+    <%= form.file_field :image, class: "form-control", accept: "image/*" %>
+  </div>
+
+  <div class="form-group my-1">
+    <%= form.label :caption, class: "visually-hidden" %>
+    <%= form.text_area :caption, class: "form-control", placeholder: "What's going on?" %>
+  </div>
+
+  <div class="actions d-grid gap-2">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

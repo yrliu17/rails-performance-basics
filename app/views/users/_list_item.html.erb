@@ -1,0 +1,27 @@
+<li class="list-group-item list-group-action">
+  <div class="d-flex">
+    <div class="flex-shrink-0">
+      <%= image_tag user.avatar_image, class: "rounded-circle img-small img-cover" %>
+    </div>
+    <div class="flex-grow-1 ms-3">
+      <div class="d-flex justify-content-between">
+
+        <div class="">
+          <%= link_to user_path(user.username), class: "text-decoration-none" do %>
+            <%= user.display_name %>
+            <div class="fw-lighter text-body">
+              @<%= user.username %>
+            </div>
+          <% end %>
+        </div>
+
+        <%= render "follow_requests/follow_unfollow", sender: current_user, recipient: user %>
+      </div>
+
+      <p class="mb-0">
+        <%= user.bio %>
+      </p>
+
+    </div>
+  </div>
+</li>

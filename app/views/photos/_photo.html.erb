@@ -1,0 +1,81 @@
+<div id="<%= dom_id(photo) %>">
+  <% if photo.pinned? && current_page?(user_path(photo.owner.username)) %>
+    <div class="icon-link text-primary">
+      <i class="fa-solid fa-thumbtack"></i>
+      Pinned
+    </div>
+  <% end %>
+  <div class="h5 m-0 p-0 d-flex align-items-center justify-content-between mb-2">
+    <div class="d-flex">
+      <%= image_tag photo.owner.avatar_image, class: "rounded-circle me-2 img-cover img-small" %>
+
+      <%= link_to photo.owner.username, user_path(photo.owner.username), class: "text-body link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover" %>
+    </div>
+    <%= render "follow_requests/follow_unfollow", sender: current_user, recipient: photo.owner %>
+  </div>
+  <div>
+    <%= image_tag photo.image, class: "img-fluid w-100" %>
+  </div>
+  <div class="d-flex">
+    <%= link_to photo.likes_count, photo_likes_path(photo), class: "link-primary text-decoration-none pe-1" %>
+    <span>
+      <%= "like".pluralize(photo.likes_count) %>
+    </span>
+  </div>
+  <div class="d-flex justify-content-between">
+    <div class="d-flex">
+      <%= render "photos/likes", photo: photo %>
+      <%= link_to photo_path(photo), class: "btn btn-link icon-link text-decoration-none" do %>
+        <i class="fa-regular fa-comment"></i>
+        <%= photo.comments_count %>
+      <% end %>
+    </div>
+    <div class="d-flex">
+      <div class="dropdown">
+        <%= button_tag class: "btn btn-link text-decoration-none",
+        data: { bs_toggle: "dropdown"}, aria: {expanded: false} do %>
+          <i class="fa-solid fa-ellipsis"></i>
+        <% end %>
+        <ul class="dropdown-menu">
+          <li>
+            <%= link_to edit_photo_path(photo), class: "dropdown-item" do %>
+              Edit
+            <% end %>
+          </li>
+          <li>
+            <%= button_to photo_path(photo), method: :delete, class: "dropdown-item" do %>
+              Delete
+            <% end %>
+          </li>
+          <li>
+            <%= button_to photo_path(photo), method: :patch, class: "dropdown-item", params: { photo: { pinned: !photo.pinned } } do %>
+              <%= photo.pinned? ? "Un-pin" : "Pin" %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <p>
+    <%= link_to user_path(photo.owner.username), class: "text-decoration-none" do %>
+      <%= photo.owner.display_name %>
+      <span class="fw-lighter text-body">
+        @<%= photo.owner.username %>
+      </span>
+    <% end %>
+    <span class="fw-lighter">
+      &middot;
+      <%= time_ago_in_words(photo.created_at) %>
+    </span>
+    <p>
+      <%= photo.caption %>
+    </p>
+  </p>
+
+  <ul class="list-group list-group-flush">
+    <%= render photo.comments.default_order %>
+    <li class="list-group-item mt-2">
+      <%= render "comments/form", comment: photo.comments.build %>
+    </li>
+  </ul>
+</div>

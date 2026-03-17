@@ -1,0 +1,25 @@
+<% content_for :title, "Following" %>
+
+<h1>Following</h1>
+<small><%= @follows.count %> following</small>
+
+<div class="fs-5 border-bottom mb-2">
+  <%= link_to :back, class: "text-decoration-none icon-link" do %>
+    <i class="fa-solid fa-arrow-left"></i>
+    Back
+  <% end %>
+</div>
+
+<div>
+  <ul class="list-group list-group-flush">
+    <% @follows.each do |user| %>
+      <%= render "users/list_item", user: user %>
+    <% end %>
+
+    <% if @follows.empty? %>
+      <div class="fs-4 text-muted">
+        User hasn't followed anyone yet.
+      </div>
+    <% end %>
+  </ul>
+</div>

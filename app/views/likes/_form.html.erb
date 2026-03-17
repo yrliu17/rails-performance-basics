@@ -1,0 +1,8 @@
+<%= form_with(model: like) do |form| %>
+  <%= form.hidden_field :photo_id %>
+
+  <%= form.button class: "btn btn-link icon-link text-decoration-none" do %>
+    <i class="fa-regular fa-heart"></i>
+    <%= pluralize(like.photo.likes_count, "like") %>
+  <% end %>
+<% end %>

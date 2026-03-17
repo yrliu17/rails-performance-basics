@@ -1,0 +1,25 @@
+<div id="<%= dom_id(like) %>">
+  <div class="d-flex">
+    <div class="flex-shrink-0">
+      <%= image_tag like.fan.avatar_image, class: "rounded-circle img-small" %>
+    </div>
+    <div class="flex-grow-1 ms-3">
+      <div class="d-flex justify-content-between">
+
+        <div class="">
+          <%= like.fan.display_name %>
+          <div class="fw-lighter">
+            @<%= like.fan.username %>
+          </div>
+        </div>
+
+        <%= render "follow_requests/follow_unfollow", sender: current_user, recipient: like.fan %>
+      </div>
+
+      <p class="mb-0">
+        <%= like.fan.bio %>
+      </p>
+
+    </div>
+  </div>
+</div>

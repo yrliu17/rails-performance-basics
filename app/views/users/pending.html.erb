@@ -1,0 +1,75 @@
+<% content_for :title, "Pending" %>
+
+<h1>Pending</h1>
+<small><%= @pending.count %> pending</small>
+
+<div class="fs-5 border-bottom mb-2">
+  <%= link_to :back, class: "text-decoration-none icon-link" do %>
+    <i class="fa-solid fa-arrow-left"></i>
+    Back
+  <% end %>
+</div>
+
+<div>
+  <ul class="list-group list-group-flush">
+    <% @pending.each do |follow_request| %>
+      <% user = follow_request.sender %>
+      <li class="list-group-item list-group-action">
+        <div class="d-flex">
+          <div class="flex-shrink-0">
+            <%= image_tag user.avatar_image, class: "rounded-circle img-small img-cover" %>
+          </div>
+          <div class="flex-grow-1 ms-3">
+            <div class="d-flex justify-content-between">
+              <div class="">
+                <%= link_to user_path(user.username), class: "text-decoration-none" do %>
+                  <%= user.display_name %>
+                  <div class="fw-lighter text-body">
+                    @<%= user.username %>
+                  </div>
+                <% end %>
+              </div>
+
+              <div class="d-flex gap-3">
+                <%= form_with(model: follow_request) do |form| %>
+                  <%= form.hidden_field :recipient_id %>
+                  <%= form.hidden_field :status, value: "accepted" %>
+
+                  <div>
+                    <%= form.button class: "btn btn-primary rounded-pill icon-link" do %>
+                        <i class="fa-solid fa-check"></i>
+                        Accept
+                    <% end %>
+                  </div>
+                <% end %>
+
+                <%= form_with(model: follow_request) do |form| %>
+                  <%= form.hidden_field :recipient_id %>
+                  <%= form.hidden_field :status, value: "rejected" %>
+
+                  <div>
+                    <%= form.button class: "btn btn-primary rounded-pill icon-link" do %>
+                      <i class="fa-solid fa-times"></i>
+                      Reject
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+
+            </div>
+
+            <p class="mb-0">
+              <%= user.bio %>
+            </p>
+
+          </div>
+        </div>
+      </li>
+    <% end %>
+    <% if @pending.empty? %>
+      <div class="fs-4 text-muted">
+        User doesn't have any pending follows.
+      </div>
+    <% end %>
+  </ul>
+</div>

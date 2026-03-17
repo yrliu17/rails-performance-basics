@@ -1,0 +1,15 @@
+<% content_for :title, "Liked by" %>
+
+<h1>Liked by</h1>
+<small><%= pluralize(@photo.likes_count, "like") %></small>
+<hr>
+<%= link_to "back", @photo %>
+<div>
+  <ul class="list-group list-group-flush mb-5">
+    <% @likes.each do |like| %>
+      <li class="list-group-item list-group-action">
+        <%= render like %>
+      </li>
+    <% end %>
+  </ul>
+</div>

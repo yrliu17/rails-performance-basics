@@ -1,0 +1,7 @@
+<div>
+  <ul class="list-group list-group-flush">
+    <% @users.each do |user| %>
+      <%= render "users/list_item", user: user %>
+    <% end %>
+  </ul>
+</div>
