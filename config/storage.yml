@@ -10,9 +10,10 @@ cloudinary:
   service: Cloudinary
   folder: appdev_2
 
-# For our appdev sample_data task
+# Leave this alone — serves sample_data images from the First Draft AppDev-2 Cloudinary account
 cloudinary_sample_data:
   service: Cloudinary
+  cloud_name: dzhwwlb9e
 
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
