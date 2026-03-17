@@ -1,9 +1,14 @@
 <% content_for :title, "Comments" %>
 
+<div class="fs-5 border-bottom mb-2">
+  <%= link_to :back, class: "text-decoration-none icon-link" do %>
+    <i class="fa-solid fa-arrow-left"></i>
+    Back
+  <% end %>
+</div>
+
 <h1>Comments</h1>
 
-<ul id="comments" class="list-group list-group-flush mb-5">
-  <%= render @comments %>
+<ul class="list-group list-group-flush">
+  <%= render @comments.default_order %>
 </ul>
-
-<%= link_to "New comment", new_comment_path %>

@@ -15,6 +15,7 @@ gem "bootsnap", require: false        # Faster boot times via caching
 gem "thruster", require: false        # HTTP caching/compression for Puma
 gem "tzinfo-data", platforms: %i[windows jruby] # Timezone data for Windows/JRuby
 gem "devise"                          # User authentication (sign up, sign in, etc.)
+gem "action_policy"                   # Authorization policies
 gem "strip_attributes"                # Remove whitespace from model attributes
 gem "validate_url"                    # URL validation for models
 gem "faker"                           # Generate fake data for seeds

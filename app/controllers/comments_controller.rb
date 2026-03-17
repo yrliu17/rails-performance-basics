@@ -1,22 +1,15 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: %i[ show edit update destroy ]
+  before_action :set_comment, only: %i[ edit update destroy ]
 
-  # GET /comments or /comments.json
+  # GET /photos/:photo_id/comments
   def index
-    @comments = Comment.all
-  end
-
-  # GET /comments/1 or /comments/1.json
-  def show
-  end
-
-  # GET /comments/new
-  def new
-    @comment = Comment.new
+    @photo = Photo.find(params[:photo_id])
+    @comments = @photo.comments
   end
 
   # GET /comments/1/edit
   def edit
+    authorize! @comment
   end
 
   # POST /comments or /comments.json
@@ -37,6 +30,7 @@ class CommentsController < ApplicationController
 
   # PATCH/PUT /comments/1 or /comments/1.json
   def update
+    authorize! @comment
     respond_to do |format|
       if @comment.update(comment_params)
         format.html { redirect_to root_url, notice: "Comment was successfully updated." }
@@ -50,7 +44,9 @@ class CommentsController < ApplicationController
 
   # DELETE /comments/1 or /comments/1.json
   def destroy
-    @comment.destroy
+    authorize! @comment
+    @comment.destroy!
+
     respond_to do |format|
       format.html { redirect_back fallback_location: root_url, notice: "Comment was successfully destroyed." }
       format.json { head :no_content }

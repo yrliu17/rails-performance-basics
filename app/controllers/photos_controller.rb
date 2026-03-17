@@ -1,13 +1,9 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: %i[ show edit likes update destroy ]
 
-  # GET /photos or /photos.json
-  def index
-    @photos = Photo.all
-  end
-
   # GET /photos/1 or /photos/1.json
   def show
+    authorize! @photo
   end
 
   def likes
@@ -21,6 +17,7 @@ class PhotosController < ApplicationController
 
   # GET /photos/1/edit
   def edit
+    authorize! @photo
   end
 
   # POST /photos or /photos.json
@@ -41,6 +38,7 @@ class PhotosController < ApplicationController
 
   # PATCH/PUT /photos/1 or /photos/1.json
   def update
+    authorize! @photo
     respond_to do |format|
       if @photo.update(photo_params)
         format.html { redirect_to @photo, notice: "Photo was successfully updated." }
@@ -54,7 +52,9 @@ class PhotosController < ApplicationController
 
   # DELETE /photos/1 or /photos/1.json
   def destroy
-    @photo.destroy
+    authorize! @photo
+    @photo.destroy!
+
     respond_to do |format|
       format.html { redirect_back fallback_location: root_url, notice: "Photo was successfully destroyed." }
       format.json { head :no_content }
