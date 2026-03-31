@@ -559,7 +559,6 @@ DEPENDENCIES
   rails-controller-testing
   rails-erd
   rails_db (~> 2.5.0)
-  rake (~> 13.0)
   ransack
   rollbar
   rspec-html-matchers
