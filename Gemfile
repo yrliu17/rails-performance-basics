@@ -34,6 +34,8 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false   # Ruby code style linting
   gem "grade_runner", "~> 0.0.16" # Automated grading
   gem "rubocop", ">= 1.86" # Linting and code style enforcement
+  gem "bullet"
+  gem "rack-mini-profiler"
 end
 
 group :development do

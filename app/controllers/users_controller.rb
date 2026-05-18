@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def feed
-    @photos = @user.feed
+    @photos = @user.feed.includes(:image_attachment, owner: :avatar_image_attachment)
   end
 
   def discover
@@ -31,17 +31,17 @@ class UsersController < ApplicationController
 
   private
 
-    def set_user
-      if params[:username]
-        @user = User.find_by!(username: params.fetch(:username))
-      else
-        @user = current_user
-      end
+  def set_user
+    if params[:username]
+      @user = User.find_by!(username: params.fetch(:username))
+    else
+      @user = current_user
     end
+  end
 
-    def must_be_owner_to_view
-      if current_user != @user
-        redirect_back fallback_location: root_url, alert: "You're not authorized for that."
-      end
+  def must_be_owner_to_view
+    if current_user != @user
+      redirect_back fallback_location: root_url, alert: "You're not authorized for that."
     end
+  end
 end
